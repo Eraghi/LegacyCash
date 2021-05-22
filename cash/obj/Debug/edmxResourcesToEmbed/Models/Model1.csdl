@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CashModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="CashEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="CashModel.Account" />
+    <EntitySet Name="Cashes" EntityType="CashModel.Cash" />
+    <EntitySet Name="Funds" EntityType="CashModel.Fund" />
+    <EntitySet Name="Installments" EntityType="CashModel.Installment" />
+    <EntitySet Name="Loans" EntityType="CashModel.Loan" />
+    <EntitySet Name="People" EntityType="CashModel.Person" />
+    <EntitySet Name="sysdiagrams" EntityType="CashModel.sysdiagram" />
+    <AssociationSet Name="FK_Account_PersonID" Association="CashModel.FK_Account_PersonID">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Account" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fund_AccountID" Association="CashModel.FK_Fund_AccountID">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Fund" EntitySet="Funds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Loan_AccountID" Association="CashModel.FK_Loan_AccountID">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Loan" EntitySet="Loans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Installment_LoanID" Association="CashModel.FK_Installment_LoanID">
+      <End Role="Loan" EntitySet="Loans" />
+      <End Role="Installment" EntitySet="Installments" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BaseLineValue" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="PersonID" Type="Int32" Nullable="false" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Person" Relationship="CashModel.FK_Account_PersonID" FromRole="Account" ToRole="Person" />
+    <NavigationProperty Name="Funds" Relationship="CashModel.FK_Fund_AccountID" FromRole="Account" ToRole="Fund" />
+    <NavigationProperty Name="Loans" Relationship="CashModel.FK_Loan_AccountID" FromRole="Account" ToRole="Loan" />
+  </EntityType>
+  <EntityType Name="Cash">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Fund">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="AccountID" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Month" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Account" Relationship="CashModel.FK_Fund_AccountID" FromRole="Fund" ToRole="Account" />
+  </EntityType>
+  <EntityType Name="Installment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="LoanID" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Month" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Loan" Relationship="CashModel.FK_Installment_LoanID" FromRole="Installment" ToRole="Loan" />
+  </EntityType>
+  <EntityType Name="Loan">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="InstallmentAmount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="AccountID" Type="Int32" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Month" Type="Int32" Nullable="false" />
+    <Property Name="CashRemainingAmount" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Account" Relationship="CashModel.FK_Loan_AccountID" FromRole="Loan" ToRole="Account" />
+    <NavigationProperty Name="Installments" Relationship="CashModel.FK_Installment_LoanID" FromRole="Loan" ToRole="Installment" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Accounts" Relationship="CashModel.FK_Account_PersonID" FromRole="Person" ToRole="Account" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Account_PersonID">
+    <End Type="CashModel.Person" Role="Person" Multiplicity="1" />
+    <End Type="CashModel.Account" Role="Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fund_AccountID">
+    <End Type="CashModel.Account" Role="Account" Multiplicity="1" />
+    <End Type="CashModel.Fund" Role="Fund" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Fund">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Loan_AccountID">
+    <End Type="CashModel.Account" Role="Account" Multiplicity="0..1" />
+    <End Type="CashModel.Loan" Role="Loan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Loan">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Installment_LoanID">
+    <End Type="CashModel.Loan" Role="Loan" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CashModel.Installment" Role="Installment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Loan">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Installment">
+        <PropertyRef Name="LoanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

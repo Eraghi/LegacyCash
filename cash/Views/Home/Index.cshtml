@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Cash.ViewModels.PersonDataViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@Html.ActionLink("Calculate", "Calculate") |
+@Html.ActionLink("Delete Calculation", "DeleteCalculation") |
+@Html.ActionLink("Forcast", "Index","Loans")
+@*@Html.ActionLink("Prepare", "Prepare") |*@
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOFAccounts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValueOFAccounts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThisMonthDebit)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.NextMonthDebit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoansRemainingAmount)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => @item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => @item.NumberOFAccounts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => @item.ValueOFAccounts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => @item.ThisMonthDebit)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => @item.NextMonthDebit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => @item.LoansRemainingAmount)
+            </td>
+            <td>
+                @Html.ActionLink("Accounts", "Index", "Accounts", new { personID = item.PersonID }, null)
+            </td>
+        </tr>
+    }
+
+</table>

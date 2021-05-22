@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Cash.ViewModels.AccountLoanViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div dir="rtl">
+        <h2>Index</h2>
+
+        <p>
+            @Html.ActionLink("Create New Account", "Create") |
+            @Html.ActionLink("Create New Loan", "Create", "Loans")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LoanTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LoanAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InstallmentAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PaidAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RemainingAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InstallmentQty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PaidInstallmentQty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RemainingInstallmentQty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastInstallmentTime)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.LoanTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.LoanAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.InstallmentAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.PaidAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.RemainingAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.InstallmentQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.PaidInstallmentQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.RemainingInstallmentQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.EndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.LastInstallmentTime)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Installments", "Index", "Installments", new { loanID = item.LoanID }, null) |
+                        @Html.ActionLink("Edit Account", "Edit", new { id = item.AccountID }) |
+                        @Html.ActionLink("Edit Loan", "Edit", "Loans", new { id = item.LoanID }, null) |
+                        @Html.ActionLink("Delete Account", "Delete", new { id = item.AccountID }) |
+                        @Html.ActionLink("Delete Loan", "Delete", "Loans", new { id = item.LoanID }, null)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
