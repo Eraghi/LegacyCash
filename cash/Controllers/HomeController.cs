@@ -68,61 +68,61 @@ namespace Cash.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Prepare()
-        {
-            using (var db = new CashEntities())
-            {
-                foreach (var account in db.Accounts.Where(a => a.IsActive))
-                {
-                    YearMonth date = new YearMonth(1398, 4);
-                    YearMonth toDate = YearMonth.Current.Previous;
+        //public ActionResult Prepare()
+        //{
+        //    using (var db = new CashEntities())
+        //    {
+        //        foreach (var account in db.Accounts.Where(a => a.IsActive))
+        //        {
+        //            YearMonth date = new YearMonth(1398, 4);
+        //            YearMonth toDate = YearMonth.Current.Previous;
 
-                    while (date <= toDate)
-                    {
-                        if (account.Funds.All(f => f.YearMonth != date))
-                        {
-                            var foundAmount = (date.Month == 2) ? Calculator.FUND_AMOUNT * 2 : Calculator.FUND_AMOUNT;
-                            if (date.Month != 1)
-                            {
-                                account.Funds.Add(new Fund
-                                {
-                                    Amount = foundAmount,
-                                    Year = date.Year,
-                                    Month = date.Month
-                                });
-                            }
+        //            while (date <= toDate)
+        //            {
+        //                if (account.Funds.All(f => f.YearMonth != date))
+        //                {
+        //                    var foundAmount = (date.Month == 2) ? Calculator.FUND_AMOUNT * 2 : Calculator.FUND_AMOUNT;
+        //                    if (date.Month != 1)
+        //                    {
+        //                        account.Funds.Add(new Fund
+        //                        {
+        //                            Amount = foundAmount,
+        //                            Year = date.Year,
+        //                            Month = date.Month
+        //                        });
+        //                    }
 
-                        }
+        //                }
 
-                        var nextDate = date.Next;
-                        date = nextDate;
-                    }
-                    var loan = account.Loans.FirstOrDefault(l => l.IsActive);
-                    if (loan != null)
-                    {
-                        date = YearMonth.GetNext(loan.YearMonth);
-                        while (date <= toDate)
-                        {
-                            if (loan.Installments.All(i => i.YearMonth != date))
-                            {
-                                if (date.Month != 1)
-                                {
-                                    loan.Installments.Add(new Installment
-                                    {
-                                        Amount = loan.InstallmentAmount,
-                                        Year = date.Year,
-                                        Month = date.Month,
-                                    });
-                                }
-                            }
-                            var nextDate = YearMonth.GetNext(date.Year, date.Month);
-                            date = nextDate;
-                        }
-                    }
-                }
-                db.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
+        //                var nextDate = date.Next;
+        //                date = nextDate;
+        //            }
+        //            var loan = account.Loans.FirstOrDefault(l => l.IsActive);
+        //            if (loan != null)
+        //            {
+        //                date = YearMonth.GetNext(loan.YearMonth);
+        //                while (date <= toDate)
+        //                {
+        //                    if (loan.Installments.All(i => i.YearMonth != date))
+        //                    {
+        //                        if (date.Month != 1)
+        //                        {
+        //                            loan.Installments.Add(new Installment
+        //                            {
+        //                                Amount = loan.InstallmentAmount,
+        //                                Year = date.Year,
+        //                                Month = date.Month,
+        //                            });
+        //                        }
+        //                    }
+        //                    var nextDate = YearMonth.GetNext(date.Year, date.Month);
+        //                    date = nextDate;
+        //                }
+        //            }
+        //        }
+        //        db.SaveChanges();
+        //    }
+        //    return RedirectToAction("Index");
+        //}
     }
 }

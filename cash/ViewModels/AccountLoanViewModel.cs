@@ -44,7 +44,7 @@ namespace Cash.ViewModels
         public string LoanTime { get { return $"{this.LoanYear}/{this.LoanMonth}"; } }
         [Display(Name = "تاریخ پایان وام")]
         public string EndTime { get { return $"{EndYearMonth?.Year}/{EndYearMonth?.Month}"; } }
-        [Display(Name = "تاریخ آخرین قسط")]
+        [Display(Name = "تاریخ آخرین قسط پرداخت شده")]
         public string LastInstallmentTime { get { return $"{LastInstallmentYearMonth?.Year}/{LastInstallmentYearMonth?.Month}"; } }
         public YearMonth EndYearMonth { get; set; }
         public YearMonth LastInstallmentYearMonth { get; set; }

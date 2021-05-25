@@ -9,6 +9,14 @@ namespace Cash.Models
 {
     public partial class Account
     {
+        public YearMonth LastPersistedFundYearMonth
+        {
+            get
+            {
+                var lastFund = this.Funds.OrderByDescending(f => f.Year).ThenByDescending(f => f.Month).FirstOrDefault();
+                return lastFund?.YearMonth;
+            }
+        }
         [DisplayFormat(DataFormatString = "{0:N0}")]
         [Display(Name = "ارزش حساب")]
         public decimal Value
@@ -23,7 +31,7 @@ namespace Cash.Models
         {
             get
             {
-                return Loans.FirstOrDefault(l => l.YearMonth <= YearMonth.Current && l.EndYearMonth >= YearMonth.Current && l.IsActive);
+                return Loans.OrderByDescending(l=>l.Year).ThenBy(l=>l.Month).FirstOrDefault(l => l.IsActive && l.YearMonth <= YearMonth.Current );
             }
         }
     }

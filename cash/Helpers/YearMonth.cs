@@ -8,7 +8,6 @@ namespace Cash
 {
     public class YearMonth : IEquatable<YearMonth>, IComparable<YearMonth>
     {
-        public static bool IgnoreFirstMonthOfYear = true;
 
         public YearMonth()
         {
@@ -22,15 +21,15 @@ namespace Cash
         public int Year { get; set; }
         public int Month { get; set; }
 
-        public static YearMonth GetNext(YearMonth yearMonth, int yearToJumpQty = 0, int monthToJumpQty = 1, bool applyIgnoreFirstMonthOfYear = false)
+        public static YearMonth GetNext(YearMonth yearMonth, int yearToJumpQty = 0, int monthToJumpQty = 1)
         {
-            return GetNext(yearMonth.Year, yearMonth.Month, yearToJumpQty, monthToJumpQty, applyIgnoreFirstMonthOfYear);
+            return GetNext(yearMonth.Year, yearMonth.Month, yearToJumpQty, monthToJumpQty);
         }
-        public static YearMonth GetPrevious(YearMonth yearMonth, int yearToJumpQty = 0, int monthToJumpQty = 1, bool applyIgnoreFirstMonthOfYear = false)
+        public static YearMonth GetPrevious(YearMonth yearMonth, int yearToJumpQty = 0, int monthToJumpQty = 1)
         {
-            return GetPrevious(yearMonth.Year, yearMonth.Month, yearToJumpQty, monthToJumpQty, applyIgnoreFirstMonthOfYear);
+            return GetPrevious(yearMonth.Year, yearMonth.Month, yearToJumpQty, monthToJumpQty);
         }
-        public static YearMonth GetNext(int year, int month, int yearToJumpQty = 0, int monthToJumpQty = 1, bool applyIgnoreFirstMonthOfYear = false)
+        public static YearMonth GetNext(int year, int month, int yearToJumpQty = 0, int monthToJumpQty = 1)
         {
             for (int i = 0; i < yearToJumpQty; i++)
             {
@@ -41,7 +40,7 @@ namespace Cash
                 if (month == 12)
                 {
                     year++;
-                    month = (applyIgnoreFirstMonthOfYear && IgnoreFirstMonthOfYear) ? 2 : 1;
+                    month = 1;
                 }
                 else
                 {
@@ -51,7 +50,7 @@ namespace Cash
 
             return new YearMonth(year, month);
         }
-        public static YearMonth GetPrevious(int year, int month, int yearToJumpQty = 0, int monthToJumpQty = 1, bool applyIgnoreFirstMonthOfYear = false)
+        public static YearMonth GetPrevious(int year, int month, int yearToJumpQty = 0, int monthToJumpQty = 1)
         {
             for (int i = 0; i < yearToJumpQty; i++)
             {
@@ -59,7 +58,7 @@ namespace Cash
             }
             for (int i = 0; i < monthToJumpQty; i++)
             {
-                if (month == ((applyIgnoreFirstMonthOfYear && IgnoreFirstMonthOfYear) ? 2 : 1))
+                if (month ==  1)
                 {
                     year--;
                     month = 12;
@@ -96,13 +95,13 @@ namespace Cash
             }
         }
 
-        public YearMonth JumpNext(int yearToJumpQty = 0, int monthToJumpQty = 1, bool applyIgnoreFirstMonthOfYear = false)
+        public YearMonth JumpNext(int yearToJumpQty = 0, int monthToJumpQty = 1)
         {
-            return GetNext(Year, Month, yearToJumpQty, monthToJumpQty, applyIgnoreFirstMonthOfYear);
+            return GetNext(Year, Month, yearToJumpQty, monthToJumpQty);
         }
-        public YearMonth JumpPrevious(int yearToJumpQty = 0, int monthToJumpQty = 1, bool applyIgnoreFirstMonthOfYear = false)
+        public YearMonth JumpPrevious(int yearToJumpQty = 0, int monthToJumpQty = 1)
         {
-            return GetPrevious(Year, Month, yearToJumpQty, monthToJumpQty, applyIgnoreFirstMonthOfYear);
+            return GetPrevious(Year, Month, yearToJumpQty, monthToJumpQty);
         }
 
         public int CompareTo(YearMonth other)

@@ -13,14 +13,22 @@ namespace Cash.Models
 
         [Display(Name = "تعداد اقساط")]
         public int InstallmentQty { get { return Convert.ToInt32(this.Amount / this.InstallmentAmount); } }
-        public YearMonth EndYearMonth { get { return YearMonth.GetNext(this.YearMonth, monthToJumpQty: this.InstallmentQty, applyIgnoreFirstMonthOfYear: true); } }
+        public YearMonth EndYearMonth
+        {
+            get
+            {
+                var lastLoanPayYearMonth = LastInstallmentYearMonth ?? this.YearMonth;
+                var remainingInstallments = this.InstallmentQty - Installments.Count;
+                return YearMonth.GetNext(lastLoanPayYearMonth, monthToJumpQty: remainingInstallments);
+            }
+        }
 
         public YearMonth LastInstallmentYearMonth
         {
             get
             {
-                var monthToJumpQty = ((int)(RemainingAmount / InstallmentAmount));
-                return YearMonth.GetNext(YearMonth.Current, monthToJumpQty: monthToJumpQty, applyIgnoreFirstMonthOfYear: true);
+                var lastInstallment = Installments.OrderByDescending(i => i.Year).ThenByDescending(i => i.Month).FirstOrDefault();
+                return lastInstallment?.YearMonth;
             }
         }
 
@@ -59,7 +67,7 @@ namespace Cash.Models
             }
         }
 
-        
+
     }
 
     public class MetaLoan

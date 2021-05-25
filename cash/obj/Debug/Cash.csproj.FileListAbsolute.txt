@@ -82,8 +82,8 @@ E:\Personal\Cash\Cash\Cash\obj\Debug\Cash.csproj.CopyComplete
 E:\Personal\Cash\Cash\Cash\obj\Debug\Cash.dll
 E:\Personal\Cash\Cash\Cash\obj\Debug\Cash.pdb
 E:\Personal\Cash\Cash\Cash\obj\Debug\Cash.csproj.CoreCompileInputs.cache
-E:\Personal\LegacyCash\Cash\obj\Debug\Cash.dll
-E:\Personal\LegacyCash\Cash\obj\Debug\Cash.pdb
+E:\Personal\LegacyCash\Cash\obj\Debug\Cash.csproj.CoreCompileInputs.cache
+E:\Personal\LegacyCash\Cash\obj\Debug\Cash.csprojAssemblyReference.cache
 E:\Personal\LegacyCash\Cash\bin\Cash.dll.config
 E:\Personal\LegacyCash\Cash\bin\Cash.dll
 E:\Personal\LegacyCash\Cash\bin\Cash.pdb
@@ -115,6 +115,6 @@ E:\Personal\LegacyCash\Cash\bin\Newtonsoft.Json.xml
 E:\Personal\LegacyCash\Cash\bin\Antlr3.Runtime.pdb
 E:\Personal\LegacyCash\Cash\bin\System.Diagnostics.DiagnosticSource.xml
 E:\Personal\LegacyCash\Cash\bin\Microsoft.AspNet.TelemetryCorrelation.xml
-E:\Personal\LegacyCash\Cash\obj\Debug\Cash.csprojAssemblyReference.cache
-E:\Personal\LegacyCash\Cash\obj\Debug\Cash.csproj.CoreCompileInputs.cache
 E:\Personal\LegacyCash\Cash\obj\Debug\Cash.csproj.CopyComplete
+E:\Personal\LegacyCash\Cash\obj\Debug\Cash.dll
+E:\Personal\LegacyCash\Cash\obj\Debug\Cash.pdb
